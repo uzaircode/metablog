@@ -5,10 +5,10 @@ LABEL maintainer="uzaircode"
 ENV PYTHONBUFFERED 1
 
 COPY ./requirements.txt /requirements.txt
-COPY ./app /app
+COPY ./app /config
 
 # Refer directory to app folder
-WORKDIR /app
+WORKDIR /config
 EXPOSE 8000
 
 # Run a command when building an image in one layer (dev env)
@@ -22,13 +22,13 @@ RUN python -m venv /py && \
         build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /requirements.txt && \
     apk del .tmp-deps && \
-    adduser --disabled-password --no-create-home app
+    adduser --disabled-password --no-create-home config
 
 # Add virtual environment to system path
 ENV PATH="/py/bin:$PATH"
 
 # Next line will run on the new created user (line 21)
-USER app
+USER config
 
 
 
