@@ -11,13 +11,16 @@ COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
 
-# Run a command when building an image in one layer
-# 1st line - create a virtual environment storing python depedencies
-# 2nd/3rd line - install latest version inside the virtual environment
-# 4th line - create a user to run inside the app dir (security purposes)
+# Run a command when building an image in one layer (dev env)
+# python -m venv /py && - create a virtual environment storing python depedencies
+# adduser - create a user to run inside the app dir (security purposes)
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-deps  \
+        build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /requirements.txt && \
+    apk del .tmp-deps && \
     adduser --disabled-password --no-create-home app
 
 # Add virtual environment to system path
