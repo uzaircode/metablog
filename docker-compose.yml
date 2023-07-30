@@ -1,0 +1,13 @@
+# Version of docker compose syntax
+version: '3.9'
+
+# Services that make up for development env
+# context: . -> refer to dockerfile
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./app:/app
