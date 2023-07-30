@@ -12,8 +12,9 @@ WORKDIR /app
 EXPOSE 8000
 
 # Run a command when building an image in one layer (dev env)
-# python -m venv /py && - create a virtual environment storing python depedencies
-# adduser - create a user to run inside the app dir (security purposes)
+# python -m venv /py && -> create a virtual environment storing python depedencies
+# adduser -> create a user to run inside the app dir (security purposes)
+# build-base postgresql... -> depedency needed to build requirements.txt psycopg2
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client && \
