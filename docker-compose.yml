@@ -5,7 +5,7 @@ version: '3.9'
 # context: . -> refer to dockerfile
 # environment -> refer to development server
 services:
-  app:
+  config:
     build:
       context: .
     ports:
